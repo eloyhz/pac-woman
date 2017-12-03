@@ -1,5 +1,15 @@
-# Pac-Woman
+# Building Games with SFML
 
-Pacman's wife
+## Section 3. Shaping the game
 
-Example from: Building Games with SFML
+### The game loop
+
+#### The main loop
+
+#### Handling events
+
+### The game states
+
+### Modeling entities
+
+### Animating characters

@@ -3,7 +3,8 @@ project("Pac-Woman")
 
 add_definitions("-std=c++11")
 
-set (SRC src/main.cpp)
+set (SRC src/main.cpp
+        src/Game.cpp)
 
 add_executable(pacwoman ${SRC})
 
