@@ -3,7 +3,22 @@
 
 Game::Game()
 :m_window(sf::VideoMode(640, 480), "Pac Woman")
-{}
+{
+    m_gameStates[GameState::NoCoin] = new NoCoinState(this);
+    m_gameStates[GameState::GetReady] = new GetReadyState(this);
+    m_gameStates[GameState::Playing] = new PlayingState(this);
+    m_gameStates[GameState::Won] = new WonState(this);
+    m_gameStates[GameState::Lost] = new LostState(this);
+
+    changeGameState(GameState::NoCoin);
+}
+
+Game::~Game()
+{
+    for (GameState* gameState : m_gameStates) {
+        delete gameState;
+    }
+}
 
 void Game::run()
 {
@@ -17,37 +32,27 @@ void Game::run()
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::I)
-                    insertCoin();
+                    m_currentState->insertCoin();
                 if (event.key.code == sf::Keyboard::S)
-                    pressButton();
+                    m_currentState->pressButton();
                 if (event.key.code == sf::Keyboard::Left)
-                    moveStick(sf::Vector2i(-1, 0));
+                    m_currentState->moveStick(sf::Vector2i(-1, 0));
                 if (event.key.code == sf::Keyboard::Right)
-                    moveStick(sf::Vector2i(0, 1));
+                    m_currentState->moveStick(sf::Vector2i(0, 1));
                 if (event.key.code == sf::Keyboard::Up)
-                    moveStick(sf::Vector2i(0, -1));
+                    m_currentState->moveStick(sf::Vector2i(0, -1));
                 if (event.key.code == sf::Keyboard::Down)
-                    moveStick(sf::Vector2i(0, 1));
+                    m_currentState->moveStick(sf::Vector2i(0, 1));
             }
         }
+        m_currentState->update(sf::seconds(1));
         m_window.clear();
-        // draw here...
+        m_currentState->draw(m_window);
         m_window.display();
     }
 }
 
-void Game::insertCoin()
+void Game::changeGameState(GameState::State gameState)
 {
-    std::cout << "Coin inserted..." << std::endl;
-}
-
-void Game::pressButton()
-{
-    std::cout << "Button pressed..." << std::endl;
-}
-
-void Game::moveStick(sf::Vector2i direction)
-{
-    std::cout  << "Stick moved: "
-                << direction.x << ", " << direction.y << std::endl;
+    m_currentState = m_gameStates[gameState];
 }
