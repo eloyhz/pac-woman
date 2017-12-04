@@ -4,7 +4,7 @@ int main()
 {
     Game pacWoman;
 
-    pacWoman.run();
+    pacWoman.run(); 
    
     return EXIT_SUCCESS;
 }
