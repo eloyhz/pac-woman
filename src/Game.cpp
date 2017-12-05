@@ -29,6 +29,8 @@ Game::~Game()
 
 void Game::run()
 {
+    sf::Clock frameClock;
+
     while (m_window.isOpen())
     {
         sf::Event event;
@@ -42,6 +44,8 @@ void Game::run()
                     m_currentState->insertCoin();
                 if (event.key.code == sf::Keyboard::S)
                     m_currentState->pressButton();
+                if (event.key.code == sf::Keyboard::Escape)
+                    m_window.close();
                 if (event.key.code == sf::Keyboard::Left)
                     m_currentState->moveStick(sf::Vector2i(-1, 0));
                 if (event.key.code == sf::Keyboard::Right)
@@ -52,7 +56,7 @@ void Game::run()
                     m_currentState->moveStick(sf::Vector2i(0, 1));
             }
         }
-        m_currentState->update(sf::seconds(1));
+        m_currentState->update(frameClock.restart());
         m_window.clear();
         m_currentState->draw(m_window);
         m_window.display();

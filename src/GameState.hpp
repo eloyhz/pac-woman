@@ -56,6 +56,8 @@ public:
     void moveStick(sf::Vector2i direction);
     void update(sf::Time delta);
     void draw(sf::RenderWindow& window);
+private:
+    sf::Text m_text;
 };
 
 class PlayingState : public GameState
@@ -78,6 +80,9 @@ public:
     void moveStick(sf::Vector2i direction);
     void update(sf::Time delta);
     void draw(sf::RenderWindow& window);
+
+private:
+    sf::Text m_text;
 };
 
 class LostState : public GameState
@@ -89,6 +94,10 @@ public:
     void moveStick(sf::Vector2i direction);
     void update(sf::Time delta);
     void draw(sf::RenderWindow& window);
+private:
+    sf::Text m_text;
+    sf::Time m_countDown;
+    sf::Text m_countDownText;
 };
 
 #endif
