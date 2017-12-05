@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 class Game;
+//#include "Game.hpp"
 
 class GameState
 {
@@ -40,6 +41,10 @@ public:
     void moveStick(sf::Vector2i direction);
     void update(sf::Time delta);
     void draw(sf::RenderWindow& window);
+private:
+    sf::Text m_text;
+    sf::Sprite m_sprite;
+    bool m_displayText;
 };
 
 class GetReadyState : public GameState

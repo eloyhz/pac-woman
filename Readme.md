@@ -28,6 +28,11 @@ Transitions
 (L) -> insert coin -> (R)
 (L) -> no coin inserted after 10 sec (N)
 
+### Resources
+
+- All the external files one application needs to function
+- Can also be called assets, images, fonts, sounds
+
 2. The FSM pattern
 
 ### Modeling entities

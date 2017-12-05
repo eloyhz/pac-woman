@@ -10,6 +10,13 @@ Game::Game()
     m_gameStates[GameState::Won] = new WonState(this);
     m_gameStates[GameState::Lost] = new LostState(this);
 
+    if (!m_font.loadFromFile("../assets/font.ttf"))
+        throw std::runtime_error("Unable to load the font file");
+    if (!m_logo.loadFromFile("../assets/logo.png"))
+        throw std::runtime_error("Unable to load the logo file");
+    if (!m_texture.loadFromFile("../assets/texture.png"))
+        throw std::runtime_error("Unable to load the texture file");
+
     changeGameState(GameState::NoCoin);
 }
 
@@ -55,4 +62,16 @@ void Game::run()
 void Game::changeGameState(GameState::State gameState)
 {
     m_currentState = m_gameStates[gameState];
+}
+
+sf::Font &Game::getFont()  {
+    return m_font;
+}
+
+sf::Texture &Game::getLogo()  {
+    return m_logo;
+}
+
+sf::Texture &Game::getTexture()  {
+    return m_texture;
 }
