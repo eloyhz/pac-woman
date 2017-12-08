@@ -101,11 +101,18 @@ void GetReadyState::draw(sf::RenderWindow& window)
 
 //////////////////////// PlayingState ////////////////////////
 PlayingState::PlayingState(Game* game)
-:GameState(game)
-{}
+: GameState(game)
+, m_pacWoman(game->getTexture())
+, m_ghost(game->getTexture())
+{
+    m_pacWoman.move(100, 100);
+    m_ghost.move(200, 200);
+}
 
 void PlayingState::insertCoin()
-{}
+{
+    m_pacWoman.die();
+}
 
 void PlayingState::moveStick(sf::Vector2i direction)
 {
@@ -116,15 +123,20 @@ void PlayingState::moveStick(sf::Vector2i direction)
 }
 
 void PlayingState::pressButton()
-{}
+{
+    m_ghost.setWeak(sf::seconds(3));
+}
 
 void PlayingState::update(sf::Time delta)
 {
+    m_pacWoman.update(delta);
+    m_ghost.update(delta);
 }
 
 void PlayingState::draw(sf::RenderWindow& window)
 {
-    std::cout << "Playing..." << std::endl;
+    window.draw(m_pacWoman);
+    window.draw(m_ghost);
 }
 
 //////////////////////// WonState ////////////////////////
